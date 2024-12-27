@@ -4,6 +4,57 @@
 npm create astro@latest -- --template basics
 ```
 
+```dbml
+Table Users {
+  id integer [primary key]
+  username varchar [unique]
+  email varchar [unique]
+  password varchar
+  full_name varchar
+  profile_picture varchar
+  bio text
+  created_at timestamp
+}
+
+Table Posts {
+  id integer [primary key]
+  user_id integer [ref: > Users.id]
+  image varchar
+  caption text
+  created_at timestamp
+}
+
+Table Comments {
+  id integer [primary key]
+  post_id integer [ref: > Posts.id]
+  user_id integer [ref: > Users.id]
+  content text
+  created_at timestamp
+}
+
+Table Likes {
+  id integer [primary key]
+  post_id integer [ref: > Posts.id]
+  user_id integer [ref: > Users.id]
+  created_at timestamp
+}
+
+Table Followers {
+  id integer [primary key]
+  follower_id integer [ref: > Users.id]
+  followed_id integer [ref: > Users.id]
+  followed_at timestamp
+}
+
+Table Messages {
+  id integer [primary key]
+  sender_id integer [ref: > Users.id]
+  receiver_id integer [ref: > Users.id]
+  content text
+  sent_at timestamp
+}
+```
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
